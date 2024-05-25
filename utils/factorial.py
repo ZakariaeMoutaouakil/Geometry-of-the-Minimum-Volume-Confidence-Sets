@@ -1,4 +1,4 @@
-import time
+from time import time
 from typing import List
 
 
@@ -21,9 +21,9 @@ def factorial_list(n: int) -> List[int]:
 # Example usage with time counting
 if __name__ == "__main__":
     for limit in [1, 5, 10, 100]:
-        start_time = time.time()  # Start time
+        start_time = time()  # Start time
         factorials_list = factorial_list(limit)
-        end_time = time.time()  # End time
+        end_time = time()  # End time
 
         elapsed_time = end_time - start_time  # Calculate elapsed time
 

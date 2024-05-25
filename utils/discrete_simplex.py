@@ -1,5 +1,5 @@
-import time
 from itertools import combinations_with_replacement
+from time import time
 from typing import List
 
 
@@ -36,9 +36,9 @@ if __name__ == "__main__":
     k_ = 3
     n_ = 3
 
-    start_time = time.time()
+    start_time = time()
     example_simplex = discrete_simplex(k_, n_)
-    end_time = time.time()
+    end_time = time()
 
     for p in example_simplex:
         print(p)
