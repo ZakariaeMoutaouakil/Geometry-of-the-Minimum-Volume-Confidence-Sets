@@ -20,13 +20,12 @@ def factorial_list(n: int) -> List[int]:
 
 # Example usage with time counting
 if __name__ == "__main__":
-    limit = 10
+    for limit in [1, 5, 10, 100]:
+        start_time = time.time()  # Start time
+        factorials_list = factorial_list(limit)
+        end_time = time.time()  # End time
 
-    start_time = time.time()  # Start time
-    factorials_list = factorial_list(limit)
-    end_time = time.time()  # End time
+        elapsed_time = end_time - start_time  # Calculate elapsed time
 
-    elapsed_time = end_time - start_time  # Calculate elapsed time
-
-    print(f"Factorials from 0! to {limit}! are: {factorials_list}")
-    print(f"Time taken to compute: {elapsed_time:.6f} seconds")
+        print(f"Factorials from 0! to {limit}! are: {factorials_list}")
+        print(f"Time taken to compute: {elapsed_time:.6f} seconds")
