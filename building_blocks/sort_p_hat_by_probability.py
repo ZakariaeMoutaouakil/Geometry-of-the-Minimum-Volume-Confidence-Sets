@@ -1,4 +1,4 @@
-import math
+from math import factorial
 from time import time
 from typing import List, Tuple
 
@@ -38,7 +38,7 @@ if __name__ == "__main__":
     n_ = 10
 
     # Precompute factorials from 0! to n!
-    factorial_list = [math.factorial(i) for i in range(n_ + 1)]
+    factorial_list = [factorial(i) for i in range(n_ + 1)]
 
     start_time = time()  # Start time
     sorted_p_hat = sort_p_hat_by_probability(proba, p_, n_, factorial_list)

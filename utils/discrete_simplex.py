@@ -34,7 +34,7 @@ def discrete_simplex(k: int, n: int) -> List[List[float]]:
 if __name__ == "__main__":
     # Example usage:
     k_ = 3
-    n_ = 3
+    n_ = 4
 
     start_time = time()
     example_simplex = discrete_simplex(k_, n_)
@@ -43,4 +43,4 @@ if __name__ == "__main__":
     for p in example_simplex:
         print(p)
 
-    print("Time taken:", end_time - start_time, "seconds")
+    print(f"Time taken: {end_time - start_time:.6f} seconds")

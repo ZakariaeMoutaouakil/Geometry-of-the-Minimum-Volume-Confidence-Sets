@@ -20,12 +20,12 @@ def calculate_probability_counts(p: List[float], x: List[int], factorials: List[
     # Compute the numerator n!
     numerator = factorials[n]
 
-    # Compute the denominator (n x1)! ... (n xk)!
+    # Compute the denominator (x1)! ... (xk)!
     denominator = 1
     for h in x:
         denominator *= factorials[h]
 
-    # Compute the product p1^n x1 * ... * pk^n xk
+    # Compute the product p1^x1 * ... * pk^xk
     product = 1.
     for i in range(len(p)):
         product *= p[i] ** x[i]
