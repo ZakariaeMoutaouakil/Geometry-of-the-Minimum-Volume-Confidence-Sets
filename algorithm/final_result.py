@@ -1,5 +1,8 @@
 from typing import List, Tuple
 
+from scipy.stats import norm
+from statsmodels.stats.proportion import proportion_confint
+
 from algorithm.final_algorithm import final_algorithm
 from algorithm.margin import find_min_vector_by_function, calculate_margin
 from algorithm.robustness_radius import robustness_radius
@@ -30,24 +33,38 @@ def final_result(n: int, p_hat: List[float], delta: float, grid_size: int,
 
 if __name__ == "__main__":
     # Example usage
-    n_ = 30
-    p_hat_ = [(n_ - 2) / n_, 1 / n_, 1 / n_]
+    # n_ = 30
+    # p_hat_ = [(n_ - 2) / n_, 1 / n_, 1 / n_]
+    # print("p_hat:", p_hat_)
+    # delta_ = 0.05
+    # grid_size_ = 100
+    # precision_ = 0.1
+    #
+    # margin, radius = final_result(n_, p_hat_, delta_, grid_size_, precision_, debug=True)
+    # print(f"Smallest margin: {margin}")
+    # print(f"Smallest radius: {radius}")
+    #
+    # n_ = 30
+    # p_hat_ = [x / n_ for x in [15, 10, 5]]
+    # print("p_hat:", p_hat_)
+    # delta_ = 0.05
+    # grid_size_ = 100
+    # precision_ = 0.1
+    #
+    # margin, radius = final_result(n_, p_hat_, delta_, grid_size_, precision_, debug=True)
+    # print(f"Smallest margin: {margin}")
+    # print(f"Smallest radius: {radius}")
+
+    x = [7, 0, 3]
+    p_hat_ = [u / sum(x) for u in x]
     print("p_hat:", p_hat_)
     delta_ = 0.05
     grid_size_ = 100
     precision_ = 0.1
 
-    margin, radius = final_result(n_, p_hat_, delta_, grid_size_, precision_, debug=True)
+    margin, radius = final_result(sum(x), p_hat_, delta_, grid_size_, precision_, debug=True)
     print(f"Smallest margin: {margin}")
     print(f"Smallest radius: {radius}")
-
-    n_ = 30
-    p_hat_ = [x / n_ for x in [15, 10, 5]]
-    print("p_hat:", p_hat_)
-    delta_ = 0.05
-    grid_size_ = 100
-    precision_ = 0.001
-
-    margin, radius = final_result(n_, p_hat_, delta_, grid_size_, precision_, debug=True)
-    print(f"Smallest margin: {margin}")
-    print(f"Smallest radius: {radius}")
+    cp = proportion_confint(max(x), sum(x), alpha=2 * delta_, method="beta")[0]
+    print(f"Coverage probability: {cp}")
+    print(f"Clopper Radius: {norm.ppf(cp)}")
