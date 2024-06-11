@@ -1,6 +1,9 @@
+import math
 from itertools import combinations_with_replacement
 from time import time
 from typing import List
+
+from tqdm import tqdm
 
 
 def discrete_simplex(k: int, n: int) -> List[List[float]]:
@@ -16,10 +19,12 @@ def discrete_simplex(k: int, n: int) -> List[List[float]]:
     """
     # Generate all combinations of k integers that sum to n
     combs = combinations_with_replacement(range(n + 1), k - 1)
+    num_combinations = math.comb(n + k - 1, k - 1)
 
     simplex = []
 
-    for comb in combs:
+    # Iterate over the combinations
+    for comb in tqdm(combs, total=num_combinations, desc="Generating discrete simplex"):
         # Compute the differences between successive elements and append 0 at the start and n at the end
         point = [0] + list(comb) + [n]
         diffs = [point[i + 1] - point[i] for i in range(len(point) - 1)]

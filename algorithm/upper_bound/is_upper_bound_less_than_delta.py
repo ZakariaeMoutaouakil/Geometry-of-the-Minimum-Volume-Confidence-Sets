@@ -22,8 +22,8 @@ def is_upper_bound_less_than_delta(n: int, p: List[float], p_hat: List[float], d
 
 if __name__ == "__main__":
     # Example usage
-    n_ = 100
-    p_ = [0.4, 0.6]
+    n_ = 10
+    p_ = [0.001, 0.999]
     p_hat_ = [0.5, 0.5]
     alpha = 0.0001
 

@@ -7,7 +7,7 @@ from building_blocks.calculate_probability_counts import calculate_probability_c
 
 def calculate_probability(p: List[float], p_hat: List[float], n: int, factorials: List[int]) -> float:
     """
-    Calculate the probability according to the given formula.
+    Calculate the probability according to the multinomial formula.
 
     Args:
     p (List[float]): The vector p.

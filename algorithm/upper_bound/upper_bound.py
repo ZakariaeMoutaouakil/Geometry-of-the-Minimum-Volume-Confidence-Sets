@@ -1,4 +1,4 @@
-import math
+from math import log, exp
 from typing import List
 
 
@@ -16,7 +16,7 @@ def kl_divergence(p_hat: List[float], p: List[float]) -> float:
     kl_div = 0.0
     for ph, pt in zip(p_hat, p):
         if ph > 0 and pt > 0:
-            kl_div += ph * math.log(ph / pt)
+            kl_div += ph * log(ph / pt)
     return kl_div
 
 
@@ -39,14 +39,14 @@ def evaluate_upper_bound(n: int, p: List[float], p_hat: List[float]) -> float:
     k = len(p)
 
     # Compute the full expression
-    result = (n + 1) ** (2 * k) * math.exp(-n * kl)
+    result = ((n + 1) ** (2 * k)) * exp(-n * kl)
     return result
 
 
 if __name__ == "__main__":
     # Example usage
-    n_ = 100
-    p_ = [0.4, 0.6]
+    n_ = 10
+    p_ = [0.001, 0.999]
     p_hat_ = [0.5, 0.5]
 
     bound = evaluate_upper_bound(n_, p_, p_hat_)

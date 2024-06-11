@@ -1,11 +1,11 @@
-import math
+from math import factorial
 from time import time
 from typing import List
 
 
 def calculate_probability_counts(p: List[float], x: List[int], factorials: List[int]) -> float:
     """
-    Calculate the probability according to the given formula.
+    Calculate the probability according to the multinomial formula.
 
     Args:
     p (List[float]): The vector p.
@@ -43,7 +43,7 @@ if __name__ == "__main__":
     total = sum(counts)
 
     # Precompute factorials from 0! to n!
-    factorial_list = [math.factorial(i) for i in range(total + 1)]
+    factorial_list = [factorial(i) for i in range(total + 1)]
 
     start_time = time()  # Start time
     final_probability = calculate_probability_counts(proba, counts, factorial_list)

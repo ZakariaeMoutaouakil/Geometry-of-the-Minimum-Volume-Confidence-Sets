@@ -4,7 +4,7 @@ from typing import List
 from algorithm.s_double_star import calculate_s_double_star
 
 
-def is_close_or_in_list(p_hat: List[float], s_double_star: List[List[float]], margin: float = 0.0) -> bool:
+def is_close_or_in_list(p_hat: List[float], s_double_star: List[List[float]], precision: float = 0.) -> bool:
     """
     Check if p_hat is close to any element in s_double_star within a certain margin.
 
@@ -17,7 +17,7 @@ def is_close_or_in_list(p_hat: List[float], s_double_star: List[List[float]], ma
     bool: True if p_hat is close to any element in s_double_star within the margin, False otherwise.
     """
     for s in s_double_star:
-        if all(abs(ph - sh) <= margin for ph, sh in zip(p_hat, s)):
+        if all(abs(ph - sh) <= precision for ph, sh in zip(p_hat, s)):
             return True
     return False
 
