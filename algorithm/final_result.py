@@ -1,3 +1,4 @@
+from time import time
 from typing import List, Tuple
 
 from scipy.stats import norm
@@ -8,7 +9,7 @@ from algorithm.margin import find_min_vector_by_function, calculate_margin
 from algorithm.robustness_radius import robustness_radius
 
 
-def final_result(n: int, p_hat: List[float], delta: float, grid_size: int,
+def final_result(x: List[int], delta: float, grid_size: int,
                  precision: float = 0., debug: bool = False) -> Tuple[float, float]:
     """
     Calculate the final result.
@@ -22,12 +23,20 @@ def final_result(n: int, p_hat: List[float], delta: float, grid_size: int,
     Returns:
     Tuple[float, float]: The smallest margin and smallest radius.
     """
+    start_time = time() if debug else None  # Start time
+
+    n = sum(x)
+    p_hat = [x_i / n for x_i in x]
     confidence_region = final_algorithm(n, p_hat, delta, grid_size, precision, debug=False)
     margin_vector, smallest_margin = find_min_vector_by_function(confidence_region, calculate_margin)
     radius_vector, smallest_radius = find_min_vector_by_function(confidence_region, robustness_radius)
+
     if debug:
         print("Margin vector:", margin_vector)
         print("Radius vector:", radius_vector)
+        end_time = time()
+        print(f"Time taken to compute: {end_time - start_time:.6f} seconds")
+
     return smallest_margin, smallest_radius
 
 
@@ -55,16 +64,16 @@ if __name__ == "__main__":
     # print(f"Smallest margin: {margin}")
     # print(f"Smallest radius: {radius}")
 
-    x = [7, 0, 3]
-    p_hat_ = [u / sum(x) for u in x]
-    print("p_hat:", p_hat_)
-    delta_ = 0.05
+    x_ = [7, 3, 4]
+    p_hat_ = [u / sum(x_) for u in x_]
+    delta_ = 0.001
     grid_size_ = 100
     precision_ = 0.1
 
-    margin, radius = final_result(sum(x), p_hat_, delta_, grid_size_, precision_, debug=True)
+    margin, radius = final_result(x_, delta_, grid_size_, precision_, debug=True)
+    print("p_hat:", p_hat_)
     print(f"Smallest margin: {margin}")
     print(f"Smallest radius: {radius}")
-    cp = proportion_confint(max(x), sum(x), alpha=2 * delta_, method="beta")[0]
+    cp = proportion_confint(max(x_), sum(x_), alpha=2 * delta_, method="beta")[0]
     print(f"Coverage probability: {cp}")
     print(f"Clopper Radius: {norm.ppf(cp)}")
