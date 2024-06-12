@@ -1,6 +1,7 @@
 from typing import Tuple
 
 from scipy.stats import norm
+from statsmodels.stats.proportion import proportion_confint
 
 
 def robustness_radius(probability_vector: Tuple[float, ...], sigma: float) -> float:
@@ -22,7 +23,15 @@ def robustness_radius(probability_vector: Tuple[float, ...], sigma: float) -> fl
 
 if __name__ == "__main__":
     # Example usage
-    probability_vec = (0.2, 0.4, 0.5)
-    noise_level = 0.05
+    probability_vec = (0.004975124378109453, 0.23880597014925373, 0.7562189054726368)
+    noise_level = 0.12
     result = robustness_radius(probability_vec, noise_level)
     print(f"Robustness radius: {result}")
+    counts = [0, 2, 48]
+    alpha = 0.001
+    p1 = proportion_confint(counts[-1], sum(counts), alpha=2 * alpha, method="beta")[0]
+    rad = noise_level * norm.ppf(p1)
+    print("Clopper Pearson radius:", rad)
+    print("True p1           :", counts[-1] / sum(counts))
+    print("Clopper Pearson p1:", p1)
+    print("My p1             :", probability_vec[-1])

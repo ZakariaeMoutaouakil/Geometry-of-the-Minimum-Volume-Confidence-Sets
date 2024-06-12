@@ -4,6 +4,7 @@ from typing import Tuple
 
 from building_blocks.shortest_list_for_alpha import shortest_list_for_alpha
 from building_blocks.sort_p_hat_by_probability import sort_p_hat_by_probability
+from utils.discrete_simplex import discrete_simplex
 
 
 def calculate_s_double_star(p: Tuple[float, ...],
@@ -52,4 +53,19 @@ if __name__ == "__main__":
 
     print("S** set:", result)
 
+    print(f"Time taken to compute: {end_time - start_time:.6f} seconds")
+
+    probability_vec = (0.004975124378109453, 0.23880597014925373, 0.7562189054726368)
+    n = 70
+    simplex = discrete_simplex(3, n, False)
+    factorial_list = tuple(factorial(i) for i in range(n + 1))
+    alpha_ = 0.0001
+
+    start_time = time()  # Start time
+    result = calculate_s_double_star(probability_vec, simplex, factorial_list, alpha_)
+    result = tuple(sorted(result, key=lambda x: x[-1]))
+    end_time = time()  # End time
+
+    print("S** set:", result)
+    print((0, 2, 48) in result)
     print(f"Time taken to compute: {end_time - start_time:.6f} seconds")

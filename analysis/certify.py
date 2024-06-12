@@ -4,8 +4,11 @@ from typing import List, Tuple, Dict
 
 import pandas as pd
 
-from algorithm.final_result import final_result
+from algorithm.all_s_double_stars import calculate_all_s_double_stars
+from algorithm.confidence_region import confidence_region
 from analysis.smallest_subset import smallest_subset
+from utils.discrete_simplex import discrete_simplex
+from utils.factorial_list import factorial_list
 
 preprocessed_file_path = '../data/preprocessed_data.tsv'
 
@@ -25,10 +28,19 @@ df = pd.read_csv(preprocessed_file_path, sep='\t', dtype=dtype_dict, converters=
 # Display the DataFrame with correct types
 # print(df)
 # print(df.dtypes)
-
 num_partitions = 3
+counts = df.iloc[0]['counts']
+print("counts:", counts)
+n = sum(counts)
+factorials = factorial_list(n)
+grid = 201
+observations = discrete_simplex(k=num_partitions, n=n, normalize=False)
+probabilities = discrete_simplex(k=num_partitions, n=grid, normalize=True)
 sigma = 0.12
 alpha = 0.001
+s_double_stars = calculate_all_s_double_stars(
+    probabilities=probabilities, observations=observations, factorials=factorials, alpha=alpha
+)
 # Dictionary to cache results and time of final_result function
 final_result_cache: Dict[Tuple[int, ...], Tuple[Tuple[float, float], float]] = {}
 elapsed_time, cached_time = 0., 0.
@@ -47,8 +59,10 @@ for i in range(len(df)):
         (smallest_margin, smallest_radius), cached_time = final_result_cache[reduced_counts_tuple]
     else:
         start_time = time()
-        smallest_margin, smallest_radius = final_result(x=reduced_counts, delta=alpha, grid_size=111, precision=0.005,
-                                                        debug=True)
+        result = confidence_region(x=reduced_counts_tuple, all_s_double_stars=s_double_stars, alpha=alpha, sigma=sigma)
+        smallest_margin, smallest_radius = result['smallest_margin'], result['smallest_radius']
+        print("Radius minimizer:", result['radius_vector'])
+        print("Margin minimizer:", result['margin_vector'])
         end_time = time()
         elapsed_time = end_time - start_time
         print("time:", elapsed_time)

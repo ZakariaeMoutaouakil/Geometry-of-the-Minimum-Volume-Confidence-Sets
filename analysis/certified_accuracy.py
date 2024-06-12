@@ -58,7 +58,7 @@ def plot_multiple_files(file_paths, labels, save_path=None):
 # Example usage with multiple files
 file_paths = [
     # '/home/pc/Projects/optimisation/certification_output.tsv',
-    '/home/pc/Projects/Geometry of the Minimum Volume Confidence Sets/data/certification_output_100.tsv',
+    '/home/pc/Projects/Geometry of the Minimum Volume Confidence Sets/data/preprocessed_data.tsv',
     '/home/pc/Projects/Geometry of the Minimum Volume Confidence Sets/data/modified_data_50.tsv'
 ]
 
