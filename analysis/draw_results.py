@@ -2,7 +2,7 @@ from time import time
 from typing import Tuple, List
 
 from algorithm.final_algorithm import final_algorithm
-from algorithm.margin import find_min_vector_by_function, calculate_margin
+from algorithm.calculate_margin import find_min_vector_by_function, calculate_margin
 from analysis.draw import draw_discrete_simplex
 from utils.discrete_simplex import discrete_simplex
 

@@ -1,8 +1,9 @@
 from time import time
-from typing import List, Tuple
+from typing import Tuple
 
 
-def shortest_list_for_alpha(p_hat_probabilities: List[Tuple[List[float], float]], alpha: float) -> List[List[float]]:
+def shortest_list_for_alpha(x_probabilities: Tuple[Tuple[Tuple[int, ...], float], ...], alpha: float) \
+        -> Tuple[Tuple[int, ...], ...]:
     """
     Find the shortest list of consecutive elements such that the sum of their second coordinates is greater than 1 -
     alpha.
@@ -16,30 +17,28 @@ def shortest_list_for_alpha(p_hat_probabilities: List[Tuple[List[float], float]]
     cumulative_sum = 0.
     result = []
 
-    for p_hat, prob in p_hat_probabilities:
+    for x, prob in x_probabilities:
         cumulative_sum += prob
-        result.append(p_hat)
-        if cumulative_sum > 1 - alpha:
+        result.append(tuple(x))
+        if cumulative_sum >= 1 - alpha:
             break
 
-    return result
+    return tuple(result)
 
 
 if __name__ == "__main__":
     # Example usage:
-    p_hat_probas = [
-        ([0.3, 0.3, 0.4], 0.5),
-        ([0.1, 0.2, 0.7], 0.3),
-        ([0.2, 0.3, 0.5], 0.15),
-        ([0.4, 0.4, 0.2], 0.05)
-    ]
-    risk = 0.1
+    x_probas = (
+        ((3, 2, 1), 0.05),
+        ((1, 2, 3), 0.9),
+        ((2, 1, 3), 0.05)
+    )
+    risk = 0.05
 
     start_time = time()  # Start time
-    final_result = shortest_list_for_alpha(p_hat_probas, risk)
+    final_result = shortest_list_for_alpha(x_probas, risk)
     end_time = time()  # End time
 
-    for p in final_result:
-        print(p)
+    print("Final result:", final_result)
 
     print(f"Time taken to compute: {end_time - start_time:.6f} seconds")

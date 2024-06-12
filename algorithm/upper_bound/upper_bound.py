@@ -1,8 +1,8 @@
 from math import log, exp
-from typing import List
+from typing import Tuple
 
 
-def kl_divergence(p_hat: List[float], p: List[float]) -> float:
+def kl_divergence(p_hat: Tuple[float, ...], p: Tuple[float, ...]) -> float:
     """
     Calculate the Kullback-Leibler divergence from p to p_hat.
 
@@ -20,7 +20,7 @@ def kl_divergence(p_hat: List[float], p: List[float]) -> float:
     return kl_div
 
 
-def evaluate_upper_bound(n: int, p: List[float], p_hat: List[float]) -> float:
+def evaluate_upper_bound(p: Tuple[float, ...], x: Tuple[int, ...]) -> float:
     """
     Compute the value of the expression (n + 1)^(2k) * exp(-n * KL(p_hat, p)).
 
@@ -32,6 +32,10 @@ def evaluate_upper_bound(n: int, p: List[float], p_hat: List[float]) -> float:
     Returns:
     float: Computed value of the formula.
     """
+    # Transform the data into probabilities
+    n = sum(x)
+    p_hat = tuple([x_i / n for x_i in x])
+
     # Calculate the KL divergence
     kl = kl_divergence(p_hat, p)
 
@@ -45,9 +49,8 @@ def evaluate_upper_bound(n: int, p: List[float], p_hat: List[float]) -> float:
 
 if __name__ == "__main__":
     # Example usage
-    n_ = 10
-    p_ = [0.001, 0.999]
-    p_hat_ = [0.5, 0.5]
+    p_ = (0.001, 0.999)
+    x_ = (3, 2, 1)
 
-    bound = evaluate_upper_bound(n_, p_, p_hat_)
+    bound = evaluate_upper_bound(p_, x_)
     print(f"Result of the formula: {bound}")

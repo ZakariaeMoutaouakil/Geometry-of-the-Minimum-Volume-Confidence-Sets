@@ -1,9 +1,9 @@
-from typing import List
+from typing import Tuple
 
 from algorithm.upper_bound.upper_bound import evaluate_upper_bound
 
 
-def is_upper_bound_less_than_delta(n: int, p: List[float], p_hat: List[float], delta: float) -> bool:
+def is_pvalue_greater_than_delta(p: Tuple[float, ...], x: Tuple[int, ...], delta: float) -> bool:
     """
     Check if the result of compute_formula is greater than delta.
 
@@ -16,16 +16,19 @@ def is_upper_bound_less_than_delta(n: int, p: List[float], p_hat: List[float], d
     Returns:
     bool: True if the result of compute_formula is greater than delta, False otherwise.
     """
-    result = evaluate_upper_bound(n, p, p_hat)
-    return result < delta
+    result = evaluate_upper_bound(p, x)
+    return result > delta
 
 
 if __name__ == "__main__":
     # Example usage
-    n_ = 10
-    p_ = [0.001, 0.999]
-    p_hat_ = [0.5, 0.5]
+    p_ = (0.001, 0.999)
+    x_ = (3, 2)
     alpha = 0.0001
 
-    is_greater = is_upper_bound_less_than_delta(n_, p_, p_hat_, alpha)
-    print(f"Is the upper bound less than {alpha}? {is_greater}")
+    is_greater = is_pvalue_greater_than_delta(p_, x_, alpha)
+    print(f"Is x likely given p? {'Yes' if is_greater else 'No'}")
+
+    x_ = (1, 100)
+    is_greater = is_pvalue_greater_than_delta(p_, x_, alpha)
+    print(f"Is x likely given p? {'Yes' if is_greater else 'No'}")

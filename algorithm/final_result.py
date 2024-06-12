@@ -5,7 +5,7 @@ from scipy.stats import norm
 from statsmodels.stats.proportion import proportion_confint
 
 from algorithm.final_algorithm import final_algorithm
-from algorithm.margin import find_min_vector_by_function, calculate_margin
+from algorithm.calculate_margin import find_min_vector_by_function, calculate_margin
 from algorithm.robustness_radius import robustness_radius
 
 
