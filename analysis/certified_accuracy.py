@@ -58,10 +58,10 @@ def plot_multiple_files(file_paths, labels, save_path=None):
 # Example usage with multiple files
 file_paths = [
     # '/home/pc/Projects/optimisation/certification_output.tsv',
-    '/home/pc/Projects/Geometry of the Minimum Volume Confidence Sets/data/preprocessed_data.tsv',
-    '/home/pc/Projects/Geometry of the Minimum Volume Confidence Sets/data/modified_data_50.tsv'
+    '/home/pc/Projects/Geometry of the Minimum Volume Confidence Sets/certification_output.tsv',
+    '/home/pc/Projects/private_data/data/output_30_30_cut.tsv'
 ]
 
-labels = ['Cohen (N=100/100)', 'Me (N=50/50)']  # Generating labels for each file
+labels = ['Blaise (N=50/100)', 'Me (N=30)']  # Generating labels for each file
 
 plot_multiple_files(file_paths, labels)  # Calling the function to plot the certified accuracy curves

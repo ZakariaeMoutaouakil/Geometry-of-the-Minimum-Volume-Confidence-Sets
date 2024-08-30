@@ -94,36 +94,3 @@ df_modified = df.iloc[:, :-2]  # This slices out all rows and all columns except
 # Save to TSV file
 df_modified.to_csv('../data/modified_data_50.tsv', sep='\t',
                    index=False)  # Set index=False if you don't want to save the index as a separate column
-# raw_vectors: List[List[int]] = df['counts'].to_list()
-# for i in range(len(raw_vectors)):
-#     print(raw_vectors[i])
-#
-# vectors = get_unique_vectors(vectors=raw_vectors)
-# vectors = [sorted(vector) for vector in vectors]
-# indices = unique_vector_indices(raw_vectors=raw_vectors, unique_vectors=vectors)
-#
-# print("length of vectors:", len(vectors))
-# p1s: List[float] = []
-# num_partitions = 3
-# for vec in vectors:
-#     print("vec:", vec)
-#     observation = [vec[len(vec) - 1]]
-#     rest = vec[:len(vec) - 1]
-#     # print("rest:", rest)
-#     i = smallest_subset(vector=rest, num_partitions=num_partitions - 1, debug=False)
-#     # print("i:", i)
-#     # print(i == len(rest) - num_partitions + 1)
-#     second_class = vec[:i]
-#     observation.append(sum(second_class))
-#     # print("second_class:", second_class)
-#     third_classes = vec[i:len(vec) - 1]
-#     # print("third_classes:", third_classes)
-#     observation.append(sum(third_classes))
-#     observation = sorted(observation)
-#     print("observation:", observation)
-#     # partitions_ = partition_iterator(num_partitions=num_partitions-1, third_classes)
-#     p1 = final_result(alpha=0.05, x=observation)
-#     print("p1:", p1)
-#     p1s.append(p1)
-# for i in range(len(df)):
-#     print(type(df.iloc[i]['counts'][0]))

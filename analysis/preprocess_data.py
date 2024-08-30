@@ -7,7 +7,7 @@ def add_commas_to_counts(line: str) -> str:
 
 
 # Path to your TSV file
-file_path = '../data/certification_output_50.tsv'
+file_path = '../data/certification_output.tsv'
 
 # Read and preprocess the file
 with open(file_path, 'r') as file:
